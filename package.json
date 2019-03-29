@@ -1,0 +1,14 @@
+{
+  "name": "address-form-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Huy Truong",
+  "license": "ISC",
+  "dependencies": {
+    "semantic-ui": "^2.4.2"
+  }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+  </head>
+      
+  <body>  
+    <h1 class="ui dividing header"> Address Form </h1>
+  
+    <div class="equal width grid">
+  
+      <form class="ui form">
+  
+        <div class="seven wide field">
+          <label> Addressee </label>
+          <input type="text" name="addressee" placeholder="Full Name">
+        </div>
+    
+        <div class="seven wide field">
+          <label> Attention </label>
+          <input type="text" name="attention" placeholder="(Optional)">
+        </div>
+    
+        <div class="field">
+          <label> Residental </label>
+          <input type="checkbox" name="residental">
+        </div>
+  
+        <div class="field">
+            <div class="seven wide field">
+              <label> Address One </label>
+              <input type="text" name="addressOne" placeholder="Street Address">
+            </div>
+        </div>
+          
+        <div class="field">
+          <div class="seven wide field">
+            <label> Address Two </label>
+            <input type="text" name="addressTwo" placeholder="Apt #">
+          </div>
+        </div>
+  
+        <div class="fields">
+
+          <div class="four wide field">
+            <label> City </label>
+            <input type="text" name="city" >
+          </div>
+            
+          <div class="one wide field">
+            <label> State </label>
+            <select class="ui fluid dropdown" name="state">
+              <option value=""></option>
+              <option value="AL">AL</option>
+              <option value="AK">AK</option>
+              <option value="AZ">AZ</option>
+              <option value="AR">AR</option>
+              <option value="CA">CA</option>
+              <option value="CO">CO</option>
+              <option value="CT">CT</option>
+              <option value="DE">DE</option>
+              <option value="DC">DC</option>
+              <option value="FL">FL</option>
+              <option value="GA">GA</option>
+              <option value="HI">HI</option>
+              <option value="ID">ID</option>
+              <option value="IL">IL</option>
+              <option value="IN">IN</option>
+              <option value="IA">IA</option>
+              <option value="KS">KS</option>
+              <option value="KY">KY</option>
+              <option value="LA">LA</option>
+              <option value="ME">ME</option>
+              <option value="MD">MD</option>
+              <option value="MA">MA</option>
+              <option value="MI">MI</option>
+              <option value="MN">MN</option>
+              <option value="MS">MS</option>
+              <option value="MO">MO</option>
+              <option value="MT">MT</option>
+              <option value="NE">NE</option>
+              <option value="NV">NV</option>
+              <option value="NH">NH</option>
+              <option value="NJ">NJ</option>
+              <option value="NM">NM</option>
+              <option value="NY">NY</option>
+              <option value="NC">NC</option>
+              <option value="ND">ND</option>
+              <option value="OH">OH</option>
+              <option value="OK">OK</option>
+              <option value="OR">OR</option>
+              <option value="PA">PA</option>
+              <option value="RI">RI</option>
+              <option value="SC">SC</option>
+              <option value="SD">SD</option>
+              <option value="TN">TN</option>
+              <option value="TX">TX</option>
+              <option value="UT">UT</option>
+              <option value="VT">VT</option>
+              <option value="VA">VA</option>
+              <option value="WA">WA</option>
+              <option value="WV">WV</option>
+              <option value="WI">WI</option>
+              <option value="WY">WY</option>
+            </select>
+          </div>
+  
+          <div class="two wide field">
+            <label> Phone Number </label>
+            <input type="text" name="phoneNumber" placeholder="XXX-XXX-XXXX">
+          </div>
+        </div>
+
+        <button class="ui teal button" type="submit">Submit</button>
+      </form>
+  
+      <!-- <table class="ui celled table">
+        <thead>
+          <th> Name </th>
+          <th> Attention </th>
+          <th> Residental </th>
+          <th> Address One </th>
+          <th> Address Two </th>
+          <th> City </th>
+          <th> State </th>
+          <th> Phone Number </th>
+        </thead>
+      </table> -->
+  
+    </div>
+    
+  </body>
+      
+  <script type="text/javascript" src="app.js" ></script>
+
+</html>
+
