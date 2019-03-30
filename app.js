@@ -82,6 +82,18 @@ $(document).ready(function() {
             }
           ]
         },
+      },
+      onSuccess: function (event) {
+        event.preventDefault();
+        var addressee = getFieldValue('addressee');
+        console.log('address', addressee);
+
+
       }
-    })
+    });
+
+    function getFieldValue(fieldId) { 
+      // 'get field' is part of Semantics form behavior API
+      return $('.ui.form').form('get field', fieldId).val();
+    }
 });
