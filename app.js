@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     console.log('Document is ready.');
+    console.log('Storage before', window.localStorage);
 
     $('.ui.form').form({
       inline: true,
@@ -94,12 +95,23 @@ $(document).ready(function() {
         newAddress['city'] = getFieldValue('city');
         newAddress['state'] = getFieldValue('state');
         newAddress['phoneNumber'] = getFieldValue('phoneNumber');
-        console.log('newAddress Object', newAddress);
+        localStorage.setObject(newAddress);
       }
     });
 
+    // Extending storage to store objects
+    Storage.prototype.setObject = function(newAddress){
+      localStorage.clear();
+      var numOfAddressInStorage = localStorage.length;
+      this.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
+      console.log('Storage after', window.localStorage);
+    }
+
+    Storage.prototype.getObject = function(key) {
+      return JSON.parse(this.getItem(key));
+    }
+
     function getCheckboxValue(fieldId) {
-      console.log(`#${fieldId}`)
       var checkbox = $('.ui.form').find(`input#${fieldId}`);
       return checkbox[0].checked;
     }
