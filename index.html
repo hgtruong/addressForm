@@ -15,36 +15,44 @@
   <body>  
     <h1 class="ui dividing header"> Address Form </h1>
   
-    <div class="equal width grid">
-  
-      <form class="ui form">
-  
-        <div class="seven wide field">
-          <label> Addressee </label>
-          <input type="text" name="addressee" placeholder="Full Name">
-        </div>
+    <div class="ui center aligned grid">
     
-        <div class="seven wide field">
-          <label> Attention </label>
-          <input type="text" name="attention" placeholder="(Optional)">
+      <form class="ui form">
+
+        <div class="field">
+          <div class="seven wide field">
+            <label> Addressee </label>
+            <input type="text" name="addressee" placeholder="Full Name" id="addressee">
+          </div>
         </div>
+        
+        
+        <div class="field">
+          <div class="seven wide field">
+            <label> Attention </label>
+            <input type="text" name="attention" placeholder="(Optional)" id="attention"
+          </div>
+        </div>
+        
     
         <div class="field">
-          <label> Residental </label>
-          <input type="checkbox" name="residental" id="residental">
+          <div class="field">
+            <label> Residental </label>
+            <input type="checkbox" name="residental" id="residental">
+          </div>
         </div>
   
         <div class="field">
             <div class="seven wide field">
               <label> Address One </label>
-              <input type="text" name="addressOne" placeholder="Street Address">
+              <input type="text" name="addressOne" placeholder="Street Address" id="addressOne">
             </div>
         </div>
           
         <div class="field">
           <div class="seven wide field">
             <label> Address Two </label>
-            <input type="text" name="addressTwo" placeholder="Apt #">
+            <input type="text" name="addressTwo" placeholder="Apt #" id="addressTwo">
           </div>
         </div>
   
@@ -52,12 +60,12 @@
 
           <div class="four wide field">
             <label> City </label>
-            <input type="text" name="city" >
+            <input type="text" name="city" id="city">
           </div>
             
           <div class="one wide field">
             <label> State </label>
-            <select class="ui fluid dropdown" name="state">
+            <select class="ui fluid dropdown" name="state" id="state">
               <option value=""></option>
               <option value="AL">AL</option>
               <option value="AK">AK</option>
@@ -115,14 +123,16 @@
   
           <div class="two wide field">
             <label> Phone Number </label>
-            <input type="text" name="phoneNumber" placeholder="XXX-XXX-XXXX">
+            <input type="text" name="phoneNumber" placeholder="XXX-XXX-XXXX" id="phoneNumber">
           </div>
         </div>
 
         <button class="ui teal button" type="submit" id='submitBtn'>Submit</button>
       </form>
+    
   
-      <!-- <table class="ui celled table">
+    
+      <table class="ui selectable celled table" id="addressesTable">
         <thead>
           <th> Name </th>
           <th> Attention </th>
@@ -133,10 +143,15 @@
           <th> State </th>
           <th> Phone Number </th>
         </thead>
-      </table> -->
-  
+
+        <tbody>
+        </tbody>
+
+      </table>
     </div>
     
+
+  
   </body>
       
   <script type="text/javascript" src="app.js" ></script>

@@ -3,3 +3,15 @@
   margin-top: 10px;
   margin-bottom: 50px;
 }
+
+/* .ui.form {
+  width: 100%;
+} */
+
+#submitBtn {
+  margin-top: 10px;
+}
+
+.ui.celled.table {
+  margin-top: 15px;
+}

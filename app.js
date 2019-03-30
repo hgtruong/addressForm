@@ -2,7 +2,9 @@ $(document).ready(function() {
 
     console.log('Document is ready.');
     console.log('Storage before', window.localStorage);
+    renderAddresses();
 
+    // Form Validation
     $('.ui.form').form({
       inline: true,
       fields: {
@@ -96,33 +98,86 @@ $(document).ready(function() {
         newAddress['state'] = getFieldValue('state');
         newAddress['phoneNumber'] = getFieldValue('phoneNumber');
         // console.log('newAddress Object', newAddress);
+
         addToStorage(newAddress);
+        renderAddresses();
+        // Reset all fields when successful
+        $(".ui.form")[0].reset();
       }
     });
 
     function addToStorage (newAddress) {
       // localStorage.clear();
-      var numOfAddressInStorage = localStorage.length;
-      localStorage.setObject(`address-${numOfAddressInStorage+1}`, newAddress);
-    }
-
-    // Extending localStorage to store objects
-    Storage.prototype.setObject = function(key, value){
-      this.setItem(key, JSON.stringify(value));
-      console.log('Storage after', window.localStorage);
-    }
-
-    Storage.prototype.getObject = function(key) {
-      return JSON.parse(this.getItem(key));
+      var numOfAddressInStorage = localStorage.length
+      console.log('numOfAddress', numOfAddressInStorage);
+      localStorage.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
     }
 
     function getCheckboxValue(fieldId) {
       var checkbox = $('.ui.form').find(`input#${fieldId}`);
-      return checkbox[0].checked;
+      return checkbox[0].checked ? 'Yes' : "No";
     }
 
     function getFieldValue(fieldId) { 
       // 'get field' is part of Semantics form behavior API
       return $('.ui.form').form('get field', fieldId).val();
+    }
+
+    // Edit double clicked table row
+    $('#addressesTable').find('tr').dblclick( function(event){
+      console.log('You clicked row '+ ($(this).index()+1) );
+
+      var numOfColumns = $(this).find("td").length;
+      var clickedRowIndex = $(this).index()+1;
+      var fields = 
+      [
+        "#addressee",
+        "#attention",
+        "#residental",
+        "#addressOne",
+        "#addressTwo",
+        "#city",
+        "#state",
+        "#phoneNumber"
+      ]
+
+      for(var i = 0; i < numOfColumns; i++) {
+        var currentChild = $(this).find(`td:nth-child(${i+1})`).text();
+
+        // Handle checkbox
+        if (currentChild === "Yes" ) {
+          $('#residental').prop('checked', true);
+        }
+
+        $(fields[i]).val(currentChild);
+      }
+
+      // Removed clicked row from storage
+      console.log('event', `address-${clickedRowIndex}`);
+      localStorage.removeItem(`address-${clickedRowIndex}`);
+      $(this).remove();
+    });
+
+    function renderAddresses() {
+      $("#addressesTable tbody").html("");
+
+      for (key in localStorage) {
+        if(localStorage.hasOwnProperty(key)) {
+          var address = JSON.parse(localStorage.getItem(key));
+          var newRowContent = `
+          <tr>
+            <td data-label="Name">${address.addressee}</td>
+            <td data-label="Attention">${address.attention}</td>
+            <td data-label="Residental">${address.residental}</td>
+            <td data-label="AddressOne">${address.addressOne}</td>
+            <td data-label="AddressTwo">${address.addressTwo}</td>
+            <td data-label="City">${address.city}</td>
+            <td data-label="State">${address.state}</td>
+            <td data-label="PhoneNumber">${address.phoneNumber}</td>
+          </tr>`
+
+         $("#addressesTable tbody").append(newRowContent);
+        }
+      }
     }
 });
