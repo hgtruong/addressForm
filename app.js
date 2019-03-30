@@ -1,7 +1,11 @@
+let addressesStorage = [];
+
 $(document).ready(function() {
 
+
+
     console.log('Document is ready.');
-    console.log('Storage before', window.localStorage);
+    // console.log('Storage before', window.localStorage);
     renderAddresses();
 
     // Form Validation
@@ -89,7 +93,6 @@ $(document).ready(function() {
       onSuccess: function (event) {
         event.preventDefault();
         let newAddress = {};
-        // create UUID for key
         newAddress['addressee'] = getFieldValue('addressee');
         newAddress['attention'] = getFieldValue('attention');
         newAddress['residental'] = getCheckboxValue('residental');
@@ -100,18 +103,19 @@ $(document).ready(function() {
         newAddress['phoneNumber'] = getFieldValue('phoneNumber');
         // console.log('newAddress Object', newAddress);
 
-        addToStorage(newAddress);
+        // addToStorage(newAddress);
+        addressesStorage.push(newAddress);
         renderAddresses();
         // Reset all fields when successful
         $(".ui.form")[0].reset();
       }
     });
 
-    function addToStorage (newAddress) {
-      // localStorage.clear();
-      var numOfAddressInStorage = localStorage.length;
-      localStorage.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
-    }
+    // function addToStorage (newAddress) {
+    //   // localStorage.clear();
+    //   var numOfAddressInStorage = localStorage.length;
+    //   localStorage.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
+    // }
 
     function getCheckboxValue(fieldId) {
       var checkbox = $('.ui.form').find(`input#${fieldId}`);
@@ -126,10 +130,11 @@ $(document).ready(function() {
     // Edit double clicked table row
     // $('#addressesTable').find('tr').dblclick( function(event){
     $(document).on('dblclick', '#addressesBody tr', function(event) {
-      console.log('You clicked row '+ ($(this).index()+1) );
+      console.log('You clicked row '+ ($(this).index()));
 
       var numOfColumns = $(this).find("td").length;
-      var clickedRowIndex = $(this).index()+1;
+
+      var clickedRowIndex = $(this).index();
       var fields = 
       [
         "#addressee",
@@ -153,62 +158,35 @@ $(document).ready(function() {
         $(fields[i]).val(currentChild);
       }
 
-      // Removed clicked row from storage
-      console.log('event', `address-${clickedRowIndex}`);
-
-      console.log('local before remove', localStorage);
-      localStorage.removeItem(`address-${clickedRowIndex}`);
-
-      console.log('local after remove', localStorage);
-   
-      // Reset the key count
-      reorderStorage();
+      addressesStorage.splice(clickedRowIndex, 1);
       $(this).remove();
-
       renderAddresses();
     });
 
-
-    function reorderStorage() {
-      var counter = 1;
-
-    console.log('local before reorder', localStorage);
-      for(key in localStorage) {
-        if (localStorage.hasOwnProperty(key)) {
-          var tempAddressHolder = localStorage.getItem(key);
-          localStorage.setItem(`address-${counter}`, tempAddressHolder);
-          counter++;
-        }
-      }
-      console.log('local after reorder', localStorage);
-    }
-
     // Should have warning dialog
     $('#clearBtn').click(function() {
-      localStorage.clear();
+      addressesStorage = [];
       renderAddresses();
     });
     
     function renderAddresses() {
       $("#addressesTable tbody").html("");
+      console.log('storage', addressesStorage);
 
-      for (key in localStorage) {
-        if(localStorage.hasOwnProperty(key)) {
-          var address = JSON.parse(localStorage.getItem(key));
-          var newRowContent = `
-          <tr>
-            <td data-label="Name">${address.addressee}</td>
-            <td data-label="Attention">${address.attention}</td>
-            <td data-label="Residental">${address.residental}</td>
-            <td data-label="AddressOne">${address.addressOne}</td>
-            <td data-label="AddressTwo">${address.addressTwo}</td>
-            <td data-label="City">${address.city}</td>
-            <td data-label="State">${address.state}</td>
-            <td data-label="PhoneNumber">${address.phoneNumber}</td>
-          </tr>`
+      for(var i = 0; i < addressesStorage.length; i++) {
+        var newRowContent = `
+        <tr>
+          <td data-label="Name">${addressesStorage[i].addressee}</td>
+          <td data-label="Attention">${addressesStorage[i].attention}</td>
+          <td data-label="Residental">${addressesStorage[i].residental}</td>
+          <td data-label="AddressOne">${addressesStorage[i].addressOne}</td>
+          <td data-label="AddressTwo">${addressesStorage[i].addressTwo}</td>
+          <td data-label="City">${addressesStorage[i].city}</td>
+          <td data-label="State">${addressesStorage[i].state}</td>
+          <td data-label="PhoneNumber">${addressesStorage[i].phoneNumber}</td>
+        </tr>`
 
-         $("#addressesTable tbody").append(newRowContent);
-        }
+        $("#addressesTable tbody").append(newRowContent);
       }
     }
 });
