@@ -13,57 +13,53 @@
   </head>
       
   <body>  
-    <h1 class="ui dividing header"> Address Form </h1>
-  
-    <div class="ui center aligned grid">
-    
-      <form class="ui form">
 
-        <div class="field">
-          <div class="seven wide field">
+    <form class="ui form centered">
+      <h1 class="ui dividing header"> Address Form </h1>
+
+      <div class="field huy">
+        <div class="two fields">
+          <div class="field">
             <label> Addressee </label>
             <input type="text" name="addressee" placeholder="Full Name" id="addressee">
           </div>
-        </div>
-        
-        
-        <div class="field">
-          <div class="seven wide field">
-            <label> Attention </label>
-            <input type="text" name="attention" placeholder="(Optional)" id="attention"
-          </div>
-        </div>
-        
-    
-        <div class="field">
           <div class="field">
-            <label> Residental </label>
-            <input type="checkbox" name="residental" id="residental">
+            <label> Attention </label>
+            <input type="text" name="attention" placeholder="(Optional)" id="attention">
           </div>
         </div>
+      </div>
   
+      <div class="field">
         <div class="field">
-            <div class="seven wide field">
-              <label> Address One </label>
-              <input type="text" name="addressOne" placeholder="Street Address" id="addressOne">
-            </div>
+          <label> Residental </label>
+          <input type="checkbox" name="residental" id="residental">
         </div>
-          
-        <div class="field">
-          <div class="seven wide field">
+      </div>
+
+      <div class="field">
+        <div class="two fields">
+          <div class="field">
+            <label> Address One </label>
+            <input type="text" name="addressOne" placeholder="Street Address" id="addressOne">
+          </div>
+          <div class="field">
             <label> Address Two </label>
             <input type="text" name="addressTwo" placeholder="Apt #" id="addressTwo">
           </div>
         </div>
-  
-        <div class="fields">
+      </div>
+        
 
-          <div class="four wide field">
+      <div class="field">
+        <div class="three fields">
+
+          <div class="eight wide field">
             <label> City </label>
             <input type="text" name="city" id="city">
           </div>
-            
-          <div class="one wide field">
+          
+          <div class="two wide field">
             <label> State </label>
             <select class="ui fluid dropdown" name="state" id="state">
               <option value=""></option>
@@ -120,18 +116,20 @@
               <option value="WY">WY</option>
             </select>
           </div>
-  
-          <div class="two wide field">
+
+
+          <div class="three wide field">
             <label> Phone Number </label>
             <input type="text" name="phoneNumber" placeholder="XXX-XXX-XXXX" id="phoneNumber">
           </div>
         </div>
+      </div>
 
-        <button class="ui teal button" type="submit" id='submitBtn'>Submit</button>
-      </form>
-    
-  
-    
+      <button class="ui teal button" type="submit" id='submitBtn'>Submit</button>
+    </form>
+
+
+    <div class="field tableScroll">
       <table class="ui selectable celled table" id="addressesTable">
         <thead>
           <th> Name </th>
@@ -143,15 +141,14 @@
           <th> State </th>
           <th> Phone Number </th>
         </thead>
-
-        <tbody>
+        <tbody id="addressesBody">
         </tbody>
-
       </table>
     </div>
-    
 
-  
+    <button class="ui red button" id="clearBtn"> Clear </button>
+    <div class="field editMessage"> (Double click to edit) </div>
+    
   </body>
       
   <script type="text/javascript" src="app.js" ></script>

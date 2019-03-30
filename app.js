@@ -88,7 +88,8 @@ $(document).ready(function() {
       },
       onSuccess: function (event) {
         event.preventDefault();
-        var newAddress = {};
+        let newAddress = {};
+        // create UUID for key
         newAddress['addressee'] = getFieldValue('addressee');
         newAddress['attention'] = getFieldValue('attention');
         newAddress['residental'] = getCheckboxValue('residental');
@@ -108,8 +109,7 @@ $(document).ready(function() {
 
     function addToStorage (newAddress) {
       // localStorage.clear();
-      var numOfAddressInStorage = localStorage.length
-      console.log('numOfAddress', numOfAddressInStorage);
+      var numOfAddressInStorage = localStorage.length;
       localStorage.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
     }
 
@@ -124,7 +124,8 @@ $(document).ready(function() {
     }
 
     // Edit double clicked table row
-    $('#addressesTable').find('tr').dblclick( function(event){
+    // $('#addressesTable').find('tr').dblclick( function(event){
+    $(document).on('dblclick', '#addressesBody tr', function(event) {
       console.log('You clicked row '+ ($(this).index()+1) );
 
       var numOfColumns = $(this).find("td").length;
@@ -154,10 +155,40 @@ $(document).ready(function() {
 
       // Removed clicked row from storage
       console.log('event', `address-${clickedRowIndex}`);
+
+      console.log('local before remove', localStorage);
       localStorage.removeItem(`address-${clickedRowIndex}`);
+
+      console.log('local after remove', localStorage);
+   
+      // Reset the key count
+      reorderStorage();
       $(this).remove();
+
+      renderAddresses();
     });
 
+
+    function reorderStorage() {
+      var counter = 1;
+
+    console.log('local before reorder', localStorage);
+      for(key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+          var tempAddressHolder = localStorage.getItem(key);
+          localStorage.setItem(`address-${counter}`, tempAddressHolder);
+          counter++;
+        }
+      }
+      console.log('local after reorder', localStorage);
+    }
+
+    // Should have warning dialog
+    $('#clearBtn').click(function() {
+      localStorage.clear();
+      renderAddresses();
+    });
+    
     function renderAddresses() {
       $("#addressesTable tbody").html("");
 
