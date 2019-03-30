@@ -95,15 +95,20 @@ $(document).ready(function() {
         newAddress['city'] = getFieldValue('city');
         newAddress['state'] = getFieldValue('state');
         newAddress['phoneNumber'] = getFieldValue('phoneNumber');
-        localStorage.setObject(newAddress);
+        // console.log('newAddress Object', newAddress);
+        addToStorage(newAddress);
       }
     });
 
-    // Extending storage to store objects
-    Storage.prototype.setObject = function(newAddress){
+    function addToStorage (newAddress) {
       localStorage.clear();
       var numOfAddressInStorage = localStorage.length;
-      this.setItem(`address-${numOfAddressInStorage+1}`, JSON.stringify(newAddress));
+      localStorage.setObject(`address-${numOfAddressInStorage+1}`, newAddress);
+    }
+
+    // Extending storage to store objects
+    Storage.prototype.setObject = function(key, value){
+      this.setItem(key, JSON.stringify(value));
       console.log('Storage after', window.localStorage);
     }
 
