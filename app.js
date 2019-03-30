@@ -101,12 +101,12 @@ $(document).ready(function() {
     });
 
     function addToStorage (newAddress) {
-      localStorage.clear();
+      // localStorage.clear();
       var numOfAddressInStorage = localStorage.length;
       localStorage.setObject(`address-${numOfAddressInStorage+1}`, newAddress);
     }
 
-    // Extending storage to store objects
+    // Extending localStorage to store objects
     Storage.prototype.setObject = function(key, value){
       this.setItem(key, JSON.stringify(value));
       console.log('Storage after', window.localStorage);
