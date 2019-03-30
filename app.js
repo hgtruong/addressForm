@@ -85,12 +85,24 @@ $(document).ready(function() {
       },
       onSuccess: function (event) {
         event.preventDefault();
-        var addressee = getFieldValue('addressee');
-        console.log('address', addressee);
-
-
+        var newAddress = {};
+        newAddress['addressee'] = getFieldValue('addressee');
+        newAddress['attention'] = getFieldValue('attention');
+        newAddress['residental'] = getCheckboxValue('residental');
+        newAddress['addressOne'] = getFieldValue('addressOne');
+        newAddress['addressTwo'] = getFieldValue('addressTwo');
+        newAddress['city'] = getFieldValue('city');
+        newAddress['state'] = getFieldValue('state');
+        newAddress['phoneNumber'] = getFieldValue('phoneNumber');
+        console.log('newAddress Object', newAddress);
       }
     });
+
+    function getCheckboxValue(fieldId) {
+      console.log(`#${fieldId}`)
+      var checkbox = $('.ui.form').find(`input#${fieldId}`);
+      return checkbox[0].checked;
+    }
 
     function getFieldValue(fieldId) { 
       // 'get field' is part of Semantics form behavior API
