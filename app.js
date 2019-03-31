@@ -92,6 +92,10 @@ $(document).ready(function() {
       },
       onSuccess: function (event) {
         event.preventDefault();
+
+        // Reset button value to "Submit" if changed
+        $('#submitBtn').html('Submit');
+
         let newAddress = {};
         newAddress['addressee'] = getFieldValue('addressee');
         newAddress['attention'] = getFieldValue('attention');
@@ -128,9 +132,10 @@ $(document).ready(function() {
     }
 
     // Edit double clicked table row
-    // $('#addressesTable').find('tr').dblclick( function(event){
     $(document).on('dblclick', '#addressesBody tr', function(event) {
       console.log('You clicked row '+ ($(this).index()));
+      // Change from 'submit' to 'update'
+      $('#submitBtn').html("Update");
 
       var numOfColumns = $(this).find("td").length;
 
@@ -161,14 +166,31 @@ $(document).ready(function() {
       addressesStorage.splice(clickedRowIndex, 1);
       $(this).remove();
       renderAddresses();
+
     });
 
-    // Should have warning dialog
+    // TODO: Should have warning dialog
     $('#clearBtn').click(function() {
-      addressesStorage = [];
-      renderAddresses();
+
+      $('.coupled.modal')
+      .modal({
+        allowMultiple: false
+      });
+      // open second modal on first modal buttons
+      $('.ui.tiny.modal.two')
+      .modal({
+        onApprove: function() {
+          addressesStorage = [];
+          renderAddresses();
+        }
+      })
+      .modal('attach events', '.ui.tiny.modal.one .ui.red.approve.button')
+      
+      $('.ui.tiny.modal.one')
+      .modal('show');
+
     });
-    
+
     function renderAddresses() {
       $("#addressesTable tbody").html("");
       console.log('storage', addressesStorage);
