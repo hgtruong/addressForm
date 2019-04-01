@@ -1,5 +1,6 @@
 $(document).ready(function() {
   let addressesStorage = dummyData;
+  var clickedRowIndex = -1;
   renderAddresses();
 
   // Form Validation
@@ -99,10 +100,16 @@ $(document).ready(function() {
       newAddress['city'] = getFieldValue('city');
       newAddress['state'] = getFieldValue('state');
       newAddress['phoneNumber'] = getFieldValue('phoneNumber');
+      
+      // Check if editing or creating new address
+      if (clickedRowIndex > -1) {
+        console.log('inside');
+        addressesStorage.splice(clickedRowIndex, 1);
+      }
       addressesStorage.unshift(newAddress);
-      renderAddresses();
       // Reset all fields when successful
       $(".ui.form")[0].reset();
+      renderAddresses();
     }
   });
 
@@ -118,7 +125,6 @@ $(document).ready(function() {
 
   // Edit double clicked table row
   $(document).on('dblclick', '#addressesBody tr', function(event) {
-
     if (($('#addressee').val().length 
         || $('#addressOne').val().length 
         || $('#city').val().length 
@@ -128,9 +134,10 @@ $(document).ready(function() {
       // Change from 'submit' to 'update'
       $('#submitBtn').html("Update");
 
+      $(this).css('background-color', '#f00');  
       var numOfColumns = $(this).find("td").length;
 
-      var clickedRowIndex = $(this).index();
+      clickedRowIndex = $(this).index();
       var fields = 
       [
         "#addressee",
@@ -145,26 +152,23 @@ $(document).ready(function() {
 
       for(var i = 0; i < numOfColumns; i++) {
         var currentChild = $(this).find(`td:nth-child(${i+1})`).text();
-
-        // Handle checkbox
         if (currentChild === "Yes" ) {
           $('#residental').prop('checked', true);
         }
-
         $(fields[i]).val(currentChild);
       }
-
-      addressesStorage.splice(clickedRowIndex, 1);
-      $(this).remove();
-      renderAddresses();
     }
-    
-
   });
 
-  // TODO: Should have warning dialog
+  $('#cancelBtn').click(function(e) {
+    e.preventDefault(); 
+    e.stopPropagation();
+    // Reset selected row background to white
+    $('#addressesTable tr').css('background-color', 'white');
+    $(".ui.form")[0].reset();
+  })
+  
   $('#clearBtn').click(function() {
-
     $('.coupled.modal')
     .modal({
       allowMultiple: false
