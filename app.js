@@ -1,7 +1,5 @@
 $(document).ready(function() {
-  console.log('data is', dummyData);
   let addressesStorage = dummyData;
-  console.log('Document is ready.');
   renderAddresses();
 
   // Form Validation
@@ -101,8 +99,6 @@ $(document).ready(function() {
       newAddress['city'] = getFieldValue('city');
       newAddress['state'] = getFieldValue('state');
       newAddress['phoneNumber'] = getFieldValue('phoneNumber');
-
-      console.log("newAddress", newAddress);
       addressesStorage.unshift(newAddress);
       renderAddresses();
       // Reset all fields when successful
@@ -122,8 +118,6 @@ $(document).ready(function() {
 
   // Edit double clicked table row
   $(document).on('dblclick', '#addressesBody tr', function(event) {
-    // console.log('You clicked row '+ ($(this).index()));
-    console.log('addressee is', $("#addressee").val());
 
     if (($('#addressee').val().length 
         || $('#addressOne').val().length 
@@ -191,8 +185,8 @@ $(document).ready(function() {
   });
 
   function renderAddresses() {
+    // Clear table for render
     $("#addressesTable tbody").html("");
-    console.log('storage', addressesStorage);
 
     for(var i = 0; i < addressesStorage.length; i++) {
       var newRowContent = `
