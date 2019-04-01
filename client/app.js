@@ -123,13 +123,13 @@ $(document).ready(function() {
 
   // Edit double clicked table row
   $(document).on('dblclick', '#addressesBody tr', function(event) {
+    // Only populate when form is empty
     if (($('#addressee').val().length 
         || $('#addressOne').val().length 
         || $('#city').val().length 
         || $('#state').val().length 
         || $('#phoneNumber').val().length ) === 0) {
 
-      // Change from 'submit' to 'update'
       $('#submitBtn').text("Update");
       
       // Highlight selected row
@@ -159,18 +159,20 @@ $(document).ready(function() {
     }
   });
 
+  // Clears form on cancel
   $('#cancelBtn').click(function(e) {
     e.preventDefault(); 
     e.stopPropagation();
     
     // Reset selected row background to white
     $('#addressesTable tr').css('background-color', 'white');
-    // Reset button value to "Submit" if changed
+    // Reset button value to "Submit"
     $('#submitBtn').text('Submit');
 
     $(".ui.form")[0].reset();
   })
   
+  // Delete confirmation popup modals
   $('#clearBtn').click(function() {
     $('.coupled.modal')
     .modal({
