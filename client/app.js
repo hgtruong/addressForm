@@ -123,39 +123,32 @@ $(document).ready(function() {
 
   // Edit double clicked table row
   $(document).on('dblclick', '#addressesBody tr', function(event) {
-    // Only populate when form is empty
-    if (($('#addressee').val().length 
-        || $('#addressOne').val().length 
-        || $('#city').val().length 
-        || $('#state').val().length 
-        || $('#phoneNumber').val().length ) === 0) {
+    $('#submitBtn').text("Update");
+    // Reset selected row background to white before highlight
+    $('#addressesTable tr').css('background-color', 'white');
+    $(this).css('background-color', 'MediumSeaGreen');  
 
-      $('#submitBtn').text("Update");
-      
-      // Highlight selected row
-      $(this).css('background-color', '#f00');  
-      var numOfColumns = $(this).find("td").length;
-      clickedRowIndex = $(this).index();
+    var numOfColumns = $(this).find("td").length;
+    clickedRowIndex = $(this).index();
 
-      var fields = 
-      [
-        "#addressee",
-        "#attention",
-        "#residental",
-        "#addressOne",
-        "#addressTwo",
-        "#city",
-        "#state",
-        "#phoneNumber"
-      ]
+    var fields = 
+    [
+      "#addressee",
+      "#attention",
+      "#residental",
+      "#addressOne",
+      "#addressTwo",
+      "#city",
+      "#state",
+      "#phoneNumber"
+    ]
 
-      for(var i = 0; i < numOfColumns; i++) {
-        var currentChild = $(this).find(`td:nth-child(${i+1})`).text();
-        if (currentChild === "Yes" ) {
-          $('#residental').prop('checked', true);
-        }
-        $(fields[i]).val(currentChild);
+    for(var i = 0; i < numOfColumns; i++) {
+      var currentChild = $(this).find(`td:nth-child(${i+1})`).text();
+      if (currentChild === "Yes" ) {
+        $('#residental').prop('checked', true);
       }
+      $(fields[i]).val(currentChild);
     }
   });
 
