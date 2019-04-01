@@ -88,7 +88,7 @@ $(document).ready(function() {
       event.preventDefault();
       // Reset button value to "Submit" if changed
       $('#submitBtn').text('Submit');
-
+      
       let newAddress = {};
       newAddress['addressee'] = getFieldValue('addressee');
       newAddress['attention'] = getFieldValue('attention');
@@ -101,8 +101,17 @@ $(document).ready(function() {
       
       // Check if editing or creating new address
       if (clickedRowIndex > -1) {
-        console.log('inside');
         addressesStorage.splice(clickedRowIndex, 1);
+        $('#submitBtn').text('Submit');
+        $('.ui.tiny.modal.update').modal('show');
+        setTimeout(() => {
+          $('.ui.tiny.modal.update').modal('hide');
+        }, 1000);
+      } else {
+        $('.ui.tiny.modal.confirm').modal('show');
+        setTimeout(() => {
+          $('.ui.tiny.modal.confirm').modal('hide');
+        }, 1000);
       }
       addressesStorage.unshift(newAddress);
       // Reset all fields when successful
