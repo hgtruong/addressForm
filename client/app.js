@@ -30,7 +30,6 @@ $(document).ready(function() {
         ]
       },
       addressOne: {
-        // TODO: Use API to validate the address
         identifier: 'addressOne',
         rules: [
           {
@@ -87,9 +86,8 @@ $(document).ready(function() {
     },
     onSuccess: function (event) {
       event.preventDefault();
-
       // Reset button value to "Submit" if changed
-      $('#submitBtn').html('Submit');
+      $('#submitBtn').text('Submit');
 
       let newAddress = {};
       newAddress['addressee'] = getFieldValue('addressee');
@@ -132,12 +130,13 @@ $(document).ready(function() {
         || $('#phoneNumber').val().length ) === 0) {
 
       // Change from 'submit' to 'update'
-      $('#submitBtn').html("Update");
-
+      $('#submitBtn').text("Update");
+      
+      // Highlight selected row
       $(this).css('background-color', '#f00');  
       var numOfColumns = $(this).find("td").length;
-
       clickedRowIndex = $(this).index();
+
       var fields = 
       [
         "#addressee",
@@ -163,8 +162,12 @@ $(document).ready(function() {
   $('#cancelBtn').click(function(e) {
     e.preventDefault(); 
     e.stopPropagation();
+    
     // Reset selected row background to white
     $('#addressesTable tr').css('background-color', 'white');
+    // Reset button value to "Submit" if changed
+    $('#submitBtn').text('Submit');
+
     $(".ui.form")[0].reset();
   })
   
